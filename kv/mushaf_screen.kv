@@ -1,0 +1,299 @@
+#:import rgba kivy.utils.get_color_from_hex
+    
+
+<MushafScreen>:
+    name: 'mushaf'
+    MDLabel:
+        canvas.before:
+            Color:
+                rgba: rgba(root.bg_mushaf)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                
+        text: "[b]QiSH[/b]ROH[sup]©[/sup]  " * 270
+        markup: True
+        halign: 'justify'
+        font_style: 'Caption'
+        color: (.5, .5, .5, .125)
+        
+    MDLabel:
+        text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color]'
+        markup: True
+        font_name: ".kivy/fonts/LibreBarcode128Text-Regular.ttf"
+        font_size: 50
+        pos_hint: {'center_x': 1.3, 'center_y': .027}
+  
+    FloatLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: toolbar_mushaf
+            title: root.title
+            specific_text_color: (1, 1, 1, 1)
+            pos_hint: {"center_x": 0.5, "center_y": .96}
+            md_bg_color: rgba(root.bg_toolbar) # rgba("#006060")
+            left_action_items: [['menu', lambda x: nav_drawer.set_state()], ]
+            right_action_items: [['arrow-right', lambda x: app.main_screen_call(0)], ]
+        
+        MDTabs:
+            pos_hint: {"center_x": 0.5, "center_y": .421}
+            id:tabs
+            default_tab: 0
+            tab_hint_x: False
+            #tab_padding: [0, 0, 0, 20]
+            anim_duration: .3
+            ripple_duration: 6
+            anim_threshold: .8
+            allow_stretch: False
+            tab_indicator_anim: True
+            tab_indicator_height: '4dp'
+            tab_indicator_type: 'line'
+            #elevation: 10
+            background_color: rgba(root.bg_toolbar) # rgba("#006060")
+            text_color_normal: rgba("#66cdaa")
+            text_color_active: rgba('#ffffff') # (1, 1, 1, 1) # app.theme_cls.accent_color
+            #color_indicator: rgba("#004848")
+            lock_swiping: True
+            on_tab_switch: root.on_tab_switch(*args)
+            
+    MDNavigationDrawer:
+        id: nav_drawer
+        
+        # ContentNavigationDrawer
+        BoxLayout:
+            orientation: 'vertical'
+                
+            AnchorLayout:
+                anchor_x: 'center'
+                size_hint_y: .25
+                height: avatar.height
+                canvas.before:
+                    Color:
+                        rgba: rgba(root.bg_toolbar) # ("#006060")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                    
+                Image:
+                    id: avatar
+                    size_hint: None, None
+                    size: '100dp', '100dp'
+                    source: '.kivy/icon/logon.png'
+                    
+            MDLabel:
+                canvas.before:
+                    Color:
+                        rgba: (.3, .3, .3, 1)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size: self.texture_size
+                text: '[color=ffc107][b]QiSH[/b][/color][color=c0c0c0]ROH[/color][color=ffc107][sup]©[/sup][/color]'
+                text_size: self.width, None
+                font_size: '28dp'
+                markup: True
+                halign: 'center'
+                size_hint_y: None
+                height : self.texture_size[1]
+                        	
+            MDLabel:
+                canvas.before:
+                    Color:
+                        rgba: (.3, .3, .3, 1)
+                    Rectangle:
+                        pos: self.pos[0], self.pos[1] -10
+                        size: self.size[0], self.height + 10
+                text: "[sup]E-mail[/sup] kotar226a@gmail.com"
+                markup: True
+                font_style: "Caption"
+                theme_text_color: 'Primary'
+                halign: "center"
+                size_hint_y: None
+                color: (1,1,1,1)
+                height: self.texture_size[1]
+            
+            
+            # DrawerList
+            ScrollView:
+                scroll_type: ['bars', 'content']
+                always_overscroll: True
+                bar_color: app.theme_cls.accent_color
+                bar_margin: 5
+                bar_width: 10
+                #bar_pos_y: 'left'
+                do_scroll_y: True
+                    
+                MDList:
+                    
+                    # No. 0
+                    ListDrawerItem:
+                        rawi: "Warsy"
+                        rawi_imam: "Warsy an Nafi"
+                        city: 'Madinah'
+                        iconn: 'alpha-a-box'
+                        on_release:
+                            #root.manager.current =  'mushaf'
+                            root.mushaf_imam = 'warsy'
+                            root.changes_mushaf_screen('Mushaf Warsy')
+                            nav_drawer.set_state()
+                    # No. 1
+                    ListDrawerItem:
+                        rawi: "Qolun"
+                        rawi_imam: "Qolun an Nafi"
+                        city: 'Madinah'
+                        iconn: 'alpha-b-box'
+                        on_release:
+                            root.mushaf_imam = 'qolun'
+                            root.changes_mushaf_screen('Mushaf Qolun')
+                            nav_drawer.set_state()
+                    # No. 2
+                    ListDrawerItem:
+                        rawi: "Hafs"
+                        rawi_imam: "Hafs an Ashim"
+                        city: 'Koufah'
+                        iconn: 'alpha-s-box-outline'
+                        on_release:
+                            root.mushaf_imam = 'hafs'
+                            root.changes_mushaf_screen('Mushaf Hafs')
+                            nav_drawer.set_state()
+                    # No. 3
+                    ListDrawerItem:
+                        rawi: "Syu'bah"
+                        rawi_imam: "Syu'bah an Ashim"
+                        city: 'Koufah'
+                        iconn: 'alpha-a-box-outline'
+                        on_release:
+                            root.mushaf_imam = 'syubah'
+                            root.changes_mushaf_screen("Mushaf Syu'bah")
+                            nav_drawer.set_state()
+                    # No. 4
+                    ListDrawerItem:
+                        rawi: 'Hisyam'
+                        rawi_imam: 'Hisyam an Ibnu Amr'
+                        city: 'Syam/Damascus'
+                        iconn: 'alpha-l-box'
+                        on_release:
+                            root.mushaf_imam = 'hisyam'
+                            root.changes_mushaf_screen('Mushaf Hisyam')
+                            nav_drawer.set_state()
+                    # No. 5
+                    ListDrawerItem:
+                        rawi: 'Ibnu Dzakwan'
+                        rawi_imam: 'Ibnu Dzakwan an Ibnu Amr'
+                        city: 'Syam/Damascus'
+                        iconn: 'alpha-m-box'
+                        on_release:
+                            root.mushaf_imam = 'ibnu dzakwan'
+                            root.changes_mushaf_screen('Mushaf Ibnu Dzakwan')
+                            nav_drawer.set_state()
+                    # No. 6
+                    ListDrawerItem:
+                        rawi: 'Ad Duuriy'
+                        rawi_imam: 'Ad Duuriy an Abiy Amru'
+                        city: 'Bashrah'
+                        iconn: 'alpha-t-box-outline'
+                        on_release:
+                            root.mushaf_imam = 'ad duuriy'
+                            root.changes_mushaf_screen('Mushaf Ad Duuriy')
+                            nav_drawer.set_state()
+                    # No. 7
+                    ListDrawerItem:
+                        rawi: 'As Suusiy'
+                        rawi_imam: 'As Suusiy an Abiy Amru'
+                        city: 'Bashrah'
+                        iconn: 'alpha-y-box'
+                        on_release:
+                            root.mushaf_imam = 'as suusiy'
+                            root.changes_mushaf_screen('Mushaf As Suusiy')
+                            nav_drawer.set_state()
+                    # No. 8
+                    ListDrawerItem:
+                        rawi: 'Al Bazziy'
+                        rawi_imam: 'Al Bazziy an Ibnu Katsir'
+                        city: 'Makkah'
+                        iconn: 'alpha-h-box-outline'
+                        on_release:
+                            root.mushaf_imam = 'al bazziy'
+                            root.changes_mushaf_screen('Mushaf Al Bazziy')
+                            nav_drawer.set_state()
+                    # No. 9
+                    ListDrawerItem:
+                        rawi: 'Qunbul'
+                        rawi_imam: 'Qunbul an Ibnu Katsir'
+                        city: 'Makkah'
+                        iconn: 'alpha-z-box'
+                        on_release:
+                            root.mushaf_imam = 'qunbul'
+                            root.changes_mushaf_screen('Mushaf Qunbul')
+                            nav_drawer.set_state()
+                    # No. 10
+                    ListDrawerItem:
+                        rawi: 'Abu Al Harits'
+                        rawi_imam: 'Abu Al Harits an Al Kisaiy'
+                        city: 'Koufah'
+                        iconn: 'alpha-s-box'
+                        on_release:
+                            root.mushaf_imam = 'abu al harits'
+                            root.changes_mushaf_screen('Mushaf Abu Al Harits')
+                            nav_drawer.set_state()
+                    # No. 11
+                    ListDrawerItem:
+                        rawi: 'Ad Duuriy'
+                        rawi_imam: 'Ad Duuriy an Al Kisaiy'
+                        city: 'Koufah'
+                        iconn: 'alpha-t-box'
+                        on_release:
+                            root.mushaf_imam = 'ad-duuriy'
+                            root.changes_mushaf_screen('Mushaf Ad Duuriy')
+                            nav_drawer.set_state()
+                    # No. 12
+                    ListDrawerItem:
+                        rawi: 'Khalaf'
+                        rawi_imam: 'Khalaf an Hamzah'
+                        city: 'Koufah'
+                        iconn: 'alpha-d-box-outline'
+                        on_release:
+                            root.mushaf_imam = 'khalaf'
+                            root.changes_mushaf_screen('Mushaf Khalaf')
+                            nav_drawer.set_state()
+                    # No. 13
+                    ListDrawerItem:
+                        rawi: 'Khallad'
+                        rawi_imam: 'Khallad an Hamzah'
+                        city: 'Koufah'
+                        iconn: 'alpha-k-box-outline'
+                        on_release:
+                            root.mushaf_imam = 'khallad'
+                            root.changes_mushaf_screen('Mushaf Khallad')
+                            nav_drawer.set_state()
+
+<Tab>:
+    ScrollView:
+        scroll_type: ['bars', 'content']
+        bar_margin: 3
+        bar_width: 10
+        do_scroll_y: True
+        
+        MDLabel:
+            id:label
+            size_hint_y: None
+            color: app.theme_cls.primary_color
+            height_aditive: True
+            height: self.texture_size[1]
+            text_size: self.width, None
+            padding: [mm(5), mm( 5)]
+            halign:"justify"
+      
+# Class with Parsing Methode      
+<ListDrawerItem@ThreeLineIconListItem>:
+    
+    rawi: ''
+    rawi_imam: ''
+    city: ''
+    iconn: ''
+                            
+    text: root.rawi
+    secondary_text: root.rawi_imam
+    tertiary_text: root.city
+    IconLeftWidget:
+        icon: root.iconn

@@ -1,0 +1,194 @@
+#:import rgba kivy.utils.get_color_from_hex
+#:import MDRoundFlatButton kivymd.uix.button.MDRoundFlatButton
+
+<MyRaised@MDRoundFlatButton>:
+    sumber:''
+    text1: ''
+    
+    #md_bg_color: rgba('#006060')
+    size_hint: 1.5, 1
+    theme_text_color: "Custom"
+    line_width: 1
+    line_color: rgba('#006060')
+    
+    FloatLayout:
+        Image:
+            source: root.sumber
+            pos_hint: {'center_x': .51, 'center_y': .7}
+        MDLabel:
+            text: root.text1
+            markup: True
+            pos_hint: {'center_x': .51, 'center_y': .3}
+            halign: 'center'
+            font_style: 'Subtitle1'
+            color: (1, 1, 1, 1)
+        MDLabel:
+            text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color][sup][color=#ffc107]©[/color][/sup]'
+            markup: True
+            pos_hint: {'center_x': .6, 'center_y': .2}
+            halign: 'center'
+            font_size: 18
+            color: (1, 1, 1, 1)
+            
+<MainScreen>:
+    name: 'main'
+    
+    MDLabel:
+        canvas.before:
+            Color:
+                rgba: rgba('#B2DFDB')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                
+        text: "[b]QiSH[/b]ROH[sup]©[/sup]  " * 270
+        markup: True
+        halign: 'justify'
+        font_style: 'Caption'
+        color: (.5, .5, .5, .125)
+        
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: rgba('#006060')
+            Rectangle:
+                pos: self.pos[0], self.height - self.height/17
+                size: self.width, self.height/17
+                
+        canvas:
+            Color:
+                rgba: rgba('#d9d9d9')
+            Rectangle:
+                pos: self.pos[0] + 480, self.height - self.height/17
+                size: self.width/120, self.height/17
+                
+        MDLabel:
+            id: label
+            text: '[b][color=#ffc107]HO[/color][/b][color=#d9d9d9]ME[/color]'
+            markup: True
+            #font_name: ".kivy/fonts/LibreBarcode128Text-Regular.ttf"
+            font_size: 40
+            pos_hint: {'center_x': 1.22, 'center_y': .97}
+            
+        #MDRaisedButton:
+        MDRectangleFlatButton:
+            text: 'Log-out'
+            #font_name: '.kivy/fonts/Oswald-VariableFont_wght.ttf'
+            pos_hint: {'center_x': .5, 'center_y': .97}
+            #md_bg_color: rgba('#006060')
+            size: 200,60
+            text_color: (1,1,1,1)
+            line_color: (1,1,1,1)
+            on_release: root.log_out()
+            
+#-------------------- Bar -------------------#
+             
+    Screen:
+        BoxLayout:
+            size_hint: .8, .8
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            GridLayout:
+                spacing: (30,20)
+                cols: 2
+                
+                # 1
+                MyRaised:
+                    sumber:'.kivy/icon/quran-96.png'
+                    text1: '[color=#006060][b]MUS[/b][/color][color=#006060]HAF[/color]'  
+                    on_release:
+                        root.manager.current = 'mushaf'
+                        root.manager.transition.direction = 'left'
+                    
+                # 2
+                MyRaised:
+                    sumber:'.kivy/icon/books-96.png'
+                    text1: '[color=#006060][b]KAI[/b][/color][color=#006060]DAH[/color]'
+                    on_release:
+                        root.manager.current = 'kaidah_screen'
+                        root.manager.transition.direction = 'left'
+                    
+                    
+                # 3
+                MyRaised:
+                    sumber:'.kivy/icon/rules-96.png'
+                    text1: '[color=#006060][b]RIWA[/b][/color][color=#006060]YAT[/color]'
+                    on_release:
+                        root.manager.current = 'riwayat_screen'
+                        root.manager.transition.direction = 'left'
+                    
+                # 4
+                MyRaised:
+                    sumber:'.kivy/icon/history-book-96.png'
+                    text1: '[color=#006060][b]TAJE[/b][/color][color=#006060]WID[/color]'
+                    on_release:
+                        root.manager.current = 'tajewid_screen'
+                        root.manager.transition.direction = 'left'
+                    
+                # 5
+                MyRaised:
+                    sumber:'.kivy/icon/development-skill-96.png'
+                    now: 'developer'
+                    text1: '[color=#006060][b]DEVE[/b][/color][color=#006060]LOPER[/color]'
+                    on_release:
+                        root.manager.current = 'developer'
+                        root.manager.transition.direction = 'left'
+                   
+                # 6
+                MyRaised:
+                    sumber:'.kivy/icon/money-transfer-96.png'
+                    text1: '[color=#006060][b]DONAS[/b][/color][color=#006060]INFAK[/color]'
+                    on_release:
+                        root.manager.current = 'donasi'
+                        root.manager.transition.direction = 'left'
+                    
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: rgba('#006060')
+            Rectangle:
+                pos: self.pos
+                size: self.width, self.height/17
+                
+        canvas:
+            Color:
+                rgba: rgba('#d9d9d9')
+            Rectangle:
+                pos: self.pos[0] + 480, self.pos[1]
+                size: self.width/120, self.height/17
+                
+        MDLabel:
+            id: label
+            #text: '[b][color=#003000]MUKHTAR[/b]SHIDDIQ[/color]'
+            text: root.sub_title
+            font_name: ".kivy/fonts/(A) Arslan Wessam B (A) Arslan Wessam B.ttf"
+            font_size: "25sp"
+            color: rgba("#080808")
+            pos_hint: {'center_x': .767, 'center_y': .027}
+            
+        MDLabel:
+            id: label
+            text: root.sub_title
+            font_name: ".kivy/fonts/(A) Arslan Wessam B (A) Arslan Wessam B.ttf"
+            font_size: "25sp"
+            #elevation:1
+            color: rgba("#d9d9d9")
+            pos_hint: {'center_x': .77, 'center_y': .032}
+            
+        MDLabel:
+            text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color]'
+            markup: True
+            font_name: ".kivy/fonts/LibreBarcode128Text-Regular.ttf"
+            font_size: 60
+            pos_hint: {'center_x': 1.215, 'center_y': .027}
+            
+    MDFloatingActionButton:
+        id: button
+        elevation_normal: 11
+        md_bg_color: (1.0, .76, 0.03, 1)
+        #stop_on_outer_touch: True
+        icon: 'face-profile' # book-outline'
+        type: "type_button"
+        theme_text_color: "Custom"
+        #icon_color: .7, .7, .7, 1
+        pos_hint: {'x': .045, 'top': .98}
+        on_release: root.tap_target_start()

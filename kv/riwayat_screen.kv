@@ -1,0 +1,74 @@
+#:import rgba kivy.utils.get_color_from_hex
+
+<RiwayatScreen>:
+    name: 'riwayat_screen'
+    MDLabel:
+        canvas.before:
+            Color:
+                rgba: rgba('#B2DFDB')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                
+        text: "[b]QiSH[/b]ROH[sup]©[/sup]  " * 270
+        markup: True
+        halign: 'justify'
+        font_style: 'Caption'
+        color: (.5, .5, .5, .125)
+        
+    MDLabel:
+        text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color]'
+        markup: True
+        font_name: ".kivy/fonts/LibreBarcode128Text-Regular.ttf"
+        font_size: 50
+        pos_hint: {'center_x': 1.3, 'center_y': .027}
+  
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: toolbar
+            title: root.title
+            specific_text_color: (1, 1, 1, 1)
+            md_bg_color: rgba("#006060")
+            left_action_items: [['arrow-left', lambda x: app.main_screen_call(0)], ]
+        
+        MDTabs:
+            pos_hint: {"center_x": 0.5, "center_y": .421}
+            id:tabs
+            default_tab: 0
+            #md_bg_color: rgba("#006060")
+            tab_hint_x: False
+            anim_duration: .3
+            ripple_duration: 6
+            anim_threshold: .8
+            allow_stretch: True
+            #color_indicator: rgba("#fffde7")
+            tab_indicator_anim: True
+            tab_indicator_height: '4dp'
+            tab_indicator_type: 'line'
+            #elevation: 10
+            background_color: rgba(root.bg_toolbar)
+            text_color_normal: rgba("#66cdaa")
+            text_color_active: rgba('#ffffff')
+            lock_swiping: False
+            on_tab_switch: root.on_tab_switch(*args)
+            
+<Tab>:
+    ScrollView:
+        scroll_type: ['bars', 'content']
+        always_overscroll: True
+        bar_color: app.theme_cls.accent_color
+        bar_margin: 10
+        bar_width: 10
+        do_scroll_y: True
+
+        MDLabel:
+            id: label
+            size_hint_y: None
+            color: app.theme_cls.primary_color
+            font_size: "10sp"
+            size: self.texture_size
+            text_size: self.width, None
+            padding: [mm(3), mm( 3)]
+            halign: 'justify'
+        

@@ -1,0 +1,155 @@
+#:import rgba kivy.utils.get_color_from_hex
+#:import MDTextField kivymd.uix.textfield
+#:import MDLabel kivymd.uix.label
+#:import MDFloatLayout kivymd.uix.floatlayout
+
+#:include kv/login_screen.kv
+#:8nclude kv/reset_password_screen.kv
+
+<SignupScreen>:
+    name: 'signup'
+    on_enter:
+        root.anim(back)
+        root.anim1(back1)
+        root.icons(icon)
+        root.text(label)
+    
+    MDLabel:
+        canvas.before:
+            Color:
+                rgba: rgba('#B2DFDB')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        text: "[b]QiSH[/b]ROH[sup]©[/sup]  " * 270
+        markup: True
+        halign: 'justify'
+        font_style: 'Caption'
+        color: (.5, .5, .5, .125)
+        
+    MDFloatLayout:
+        MDFloatLayout:
+            id: back
+            size_hint_y: .45
+            pos_hint: {'center_y': 1.8}
+            radius: [0, 0, 0, 40]
+            canvas.before:
+                Color:
+                    rgb: rgba('#004848') # (1, 0, 0, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        MDFloatLayout:
+            id: back1
+            size_hint_y: .45
+            pos_hint: {'center_y': 1.8}
+            radius: [0, 0, 0, 40]
+            canvas.before:
+                Color:
+                    rgb: rgba('#004848') # (1, 0, 0, 1)
+                Ellipse:
+                    pos: self.pos
+                    size: self.size
+        MDIconButton:
+            id: icon
+            icon: 'account-edit'
+            user_font_size: "60sp"
+            pos_hint: {'center_x': .5,'center_y': .85}
+            opacity: 0
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+        MDLabel:
+            id: label
+            text: f"[font=.kivy/fonts/Prototype.ttf]Sign-up[/font]"
+            markup:True
+            pos_hint: {'center_y': .8}
+            color: 1, 1, 1, 1
+            font_style: 'H5'
+            halign: 'center'
+            opacity: 0
+        
+        
+        MDCheckbox:
+            id: checkbox
+            size_hint: None, None
+            size: "48dp", "48dp"
+            pos_hint: {'center_x': .28, 'center_y': .33}
+            on_active:
+                password.icon_right = 'eye' if password.icon_right == 'eye-off' else 'eye-off'
+        MDLabel:
+            text: 'Password Visible'
+            pos_hint: {'center_x': .84, 'center_y': .33}
+        
+    MDTextField:
+        id: username
+        pos_hint: {'center_x':0.5,'center_y':0.64}
+        size_hint: (0.7,0.08)
+        hint_text : 'Username'
+        helper_text: 'Required'
+        helper_text_mode: 'on_error'
+        icon_right: 'account-box'
+        icon_right_color: rgba('#004848') # app.theme_cls.primary_color
+        required : True
+        multiline: False
+        text: root.nickname
+        on_text: root.nickname = self.text
+        
+    MDTextField:
+        id: email
+        pos_hint: {'center_x':0.5,'center_y':0.56}
+        size_hint: (0.7,0.08)
+        hint_text : 'Email'
+        helper_text: 'Required'
+        helper_text_mode: 'on_error'
+        icon_right: 'email'
+        icon_right_color: rgba('#004848') # app.theme_cls.primary_color
+        required : True
+        multiline: False
+        text: root.surel
+        on_text: root.surel = self.text
+        
+    MDTextField:
+        id: password
+        pos_hint: {'center_x':0.5,'center_y':0.48}
+        size_hint: (0.7,0.08)
+        hint_text : 'Password'
+        helper_text: 'Required'
+        helper_text_mode: 'on_error'
+        icon_right: 'eye'
+        icon_right_color: rgba('#004848') # app.theme_cls.primary_color
+        required : True
+        password: not checkbox.active
+        multiline: False
+        text: root.keyword
+        on_text: root.keyword = self.text
+        
+        
+    MDLabel:
+        text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color]'
+        markup: True
+        font_name: ".kivy/fonts/LibreBarcode128Text-Regular.ttf"
+        font_size: 60
+        pos_hint: {'center_x': 1.25, 'center_y': .027}
+        
+    BoxLayout:
+        spacing: 100
+        pos_hint: {'center_x': .5, 'center_y': .3}
+        size_hint: .7,.8
+        
+        MDTextButton:
+            text: 'Akun sudah siap!'
+            pos_hint: {'center_x':0.6,'center_y':0.62}
+            color: 0, 0, .9, 1
+            on_release:
+                root.manager.current = 'login'
+                root.manager.transition.direction = 'left'
+                
+        MDFillRoundFlatButton:
+        #MDRaisedButton:
+            id: btn
+            md_bg_color: rgba('#004848')
+            text:'Sign-up'
+            size_hint: (0.2,0.07)
+            pos_hint: {'center_x':0.5,'center_y':0.62}
+            #elevation: 10
+            on_release: root.signup()

@@ -1,0 +1,71 @@
+<DeveloperScreen>:
+    name: 'developer'
+    
+    MDLabel:
+        canvas.before:
+            Color:
+                rgba: rgba('#B2DFDB')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                
+        text: "[b]QiSH[/b]ROH[sup]©[/sup]  " * 270
+        markup: True
+        halign: 'justify'
+        font_style: 'Caption'
+        color: (.5, .5, .5, .125)
+        
+    MDLabel:
+        text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color]'
+        markup: True
+        font_name: ".kivy/fonts/LibreBarcode128Text-Regular.ttf"
+        font_size: 50
+        pos_hint: {'center_x': 1.3, 'center_y': .027}
+    
+    #MDRaisedButton:
+    MDRoundFlatButton:
+        #md_bg_color: (.6, 0, .1, 1)
+        size_hint: .7, .45
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        radius: [40,]
+        #elevation: 14
+        on_release:
+            app.main_screen_call(0)
+            #root.manager.current = 'main'
+            #root.manager.transition.direction = 'down'
+        
+        FloatLayout:
+            canvas:
+                Color:
+                    rgba: (1, .6, .2, .1)
+                #Rectangle:
+                    #id: rct
+                    #size: self.width * .1, self.height
+                    #pos: self.pos[0] - 30, self.pos[1]
+                Color:
+                    rgba: (192/255, 192/255, 192/255, .1)
+                Line:
+                    points: (self.pos[0] + self.width/10 + 20,  self.height + 25, self.width * 1.2, self.height + 25 )
+                    width: 2
+                    
+            Image:
+                source: '.kivy/icon/kisspng.png'
+                pos_hint: {'center_x': .55, 'center_y': .7}
+                size_hint: .5, .5
+                #elevation: 20
+                
+            MDLabel:
+                text: '        [color=#006060][b]DEVE[/b]LOPED\n- By | MukhtarShiddiq\n- Rest. | Pangkep - BE\n- Own | Team [b][/color][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color][sup][color=#ffc107]©[/color][/sup]'
+                markup: True
+                halign: 'left'
+                pos_hint: {'center_x': .65, 'center_y': .27}
+                font_style: 'Subtitle1'
+                color: (1, 1, 1, 1)
+                                
+            MDLabel:
+                text: '[b][color=#ffc107]QiSH[/color][/b][color=#c0c0c0]ROH[/color][sup][color=#ffc107]©[/color][/sup]'
+                markup: True
+                pos_hint: {'center_x': .87, 'center_y': .05}
+                halign: 'center'
+                font_size: 18
+                color: (1, 1, 1, 1)

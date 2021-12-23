@@ -1,0 +1,77 @@
+#:import rgba kivy.utils.get_color_from_hex
+#:import MDSpinner kivymd.uix.spinner.MDSpinner
+
+<WelcomeScreen>:
+    name: 'welcome'
+    
+    MDLabel:
+        canvas.before:
+            Color:
+                rgba: (5/255, 5/255, 57/255, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        text: "[b]QiSH[/b]ROH[sup]©[/sup]  " * 270
+        markup: True
+        halign: 'justify'
+        font_style: 'Caption'
+        color: (.5, .5, .5, .01)
+        
+    MDLabel:
+        text:'[color=#ffc107][b]QiSH[/color][/b][color=#c0c0c0]ROH[/color]'
+        font_style: 'H3'
+        font_name: '.kivy/fonts/Zexo-0Myd.ttf'
+        markup: True
+        halign: 'center'
+        pos_hint : {'center_y':0.65}
+        
+    MDLabel:
+        text:'[color=#c0c0c0]beta[/color]'
+        font_style: 'Caption'
+        font_name: '.kivy/fonts/Zexo-0Myd.ttf'
+        markup: True
+        halign: 'center'
+        pos_hint : {'center_x': .74, 'center_y': .61}
+
+        
+    MDCard:
+        canvas:
+            Color:
+                rgba: (15/255, 15/255, 67/255, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: None, None
+        size: "180dp", "140dp"
+        radius: dp(60) * 4
+        #elevation: 12
+        rgba: rgba('#050536')
+        pos_hint: {"center_x": .5, "center_y": .4}
+        FloatLayout:
+            MDSpinner:
+                size_hint: None, None
+                size: dp(46), dp(46)
+                #line_width: dp(2)
+                color: root.col_spin #rgba("#c0c0c0")
+                pos_hint: {'center_x': .5, 'center_y': .63}
+                active: True
+                
+            MDLabel:
+                text: '[color=#c0c0c0]wait...![/color]'
+                font_size: 40
+                font_name: '.kivy/fonts/MozartNbp-93Ey.ttf'
+                markup: True
+                pos_hint: {'center_x': .83, 'center_y': .22}
+                
+    MDRoundFlatButton:
+        text: root.hadits_nabi
+        size_hint: .65,.2
+        font_size: 30
+        #font_style: 'Body1'
+        font_name: '.kivy/fonts/MozartNbp-93Ey.ttf'
+        halign: 'left'
+        markup: True
+        pos_hint: {'center_x': .5, 'center_y': .85}
+        text_color: rgba('#C0C0C0')
+        line_width: 2
+        line_color: rgba('#C0C0C0')
